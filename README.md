@@ -6,7 +6,7 @@
 
 A text-conditioned segmentation system that produces binary masks from natural language prompts like `"segment crack"` and `"segment taping area"`.
 
-## 🎯 Results
+##  Results
 
 | Prompt | Test Samples | mIoU | Dice | Precision | Recall |
 |--------|--------------|------|------|-----------|--------|
@@ -16,7 +16,7 @@ A text-conditioned segmentation system that produces binary masks from natural l
 
 **Inference Speed:** 45.4 ± 0.9 ms/image (NVIDIA T4)
 
-## 🏗️ Architecture
+##  Architecture
 
 We fine-tune [CLIPSeg](https://huggingface.co/CIDAS/clipseg-rd64-refined) with frozen CLIP encoders and trainable decoder:
 
@@ -31,7 +31,7 @@ Prompt ──► CLIP Text Encoder (frozen)  ───┘
 - Efficient fine-tuning (only 1.2% parameters trained)
 - Production-ready inference (45ms/image)
 
-## 📁 Repository Structure
+##  Repository Structure
 
 ```
 ├── drywall_segmentation_clipseg.ipynb  # Main training notebook
@@ -49,7 +49,7 @@ Prompt ──► CLIP Text Encoder (frozen)  ───┘
 └── README.md
 ```
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### 1. Open in Google Colab
 
@@ -94,7 +94,7 @@ with torch.no_grad():
     mask = torch.sigmoid(outputs.logits) > 0.5
 ```
 
-## 📊 Training Configuration
+##  Training Configuration
 
 | Parameter | Value |
 |-----------|-------|
@@ -108,7 +108,7 @@ with torch.no_grad():
 | Loss | 0.5 × BCE + 0.5 × Dice |
 | Trainable Params | 1.78M / 150.7M (1.2%) |
 
-## 📦 Datasets
+##  Datasets
 
 | Dataset | Source | Train | Val | Test | Format |
 |---------|--------|-------|-----|------|--------|
@@ -117,11 +117,11 @@ with torch.no_grad():
 
 **Note:** The original Cracks dataset was Object Detection format. We converted it to Instance Segmentation (see report Section 3 for details).
 
-## 🔄 Prompt Consistency
+##  Prompt Consistency
 
 The model responds consistently to semantic variations of the same prompt—all variants produce nearly identical predictions, confirming effective text conditioning.
 
-## ⚠️ Known Limitations
+##  Known Limitations
 
 | Limitation | Cause | Mitigation |
 |------------|-------|------------|
@@ -129,7 +129,7 @@ The model responds consistently to semantic variations of the same prompt—all 
 | Outdoor surfaces (brick, concrete) | Domain shift from indoor training data | Data augmentation |
 | Low contrast cracks | CLIP emphasizes semantics over gradients | Edge-enhanced inputs |
 
-## 📈 Recommended Improvements
+##  Recommended Improvements
 
 | Approach | Key Idea | Expected Gain | Trade-off |
 |----------|----------|---------------|-----------|
@@ -137,19 +137,15 @@ The model responds consistently to semantic variations of the same prompt—all 
 | **Multi-scale Fusion** | Run at 3 scales, aggregate predictions | +5-10% on thin structures | 3× compute |
 | **CRF Post-processing** | Refine boundaries using image edges | +3-5% boundary precision | +20ms/image |
 
-## 🔧 Reproducibility
+##  Reproducibility
 
 - **Random Seed:** 42
 - **Framework:** PyTorch 2.x, HuggingFace Transformers
 - **Hardware:** NVIDIA Tesla T4 (Google Colab)
 - **Training Time:** 1 hour 4 minutes
 
-## 📚 References
 
-1. Lüddecke & Ecker. [Image Segmentation Using Text and Image Prompts](https://arxiv.org/abs/2112.10003). CVPR 2022.
-2. Radford et al. [Learning Transferable Visual Models From Natural Language Supervision](https://arxiv.org/abs/2103.00020). ICML 2021.
-3. Kirillov et al. [Segment Anything](https://arxiv.org/abs/2304.02643). ICCV 2023.
 
-## 👤 Author
+## Author
 
 Mohith | IIT Bombay | March 2026
